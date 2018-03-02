@@ -186,13 +186,16 @@ var ModalVideo = function () {
         (0, _util.append)(body, html);
         var modal = document.getElementById(id);
         var btn = modal.querySelector('.js-modal-video-dismiss-btn');
-        modal.focus();
-        modal.addEventListener('click', function () {
+        var closeModal = function closeModal() {
           (0, _util.addClass)(modal, classNames.modalVideoClose);
           setTimeout(function () {
             (0, _util.remove)(modal);
             selector.focus();
           }, speed);
+        };
+        modal.focus();
+        modal.addEventListener('click', function () {
+          closeModal();
         });
         modal.addEventListener('keydown', function (e) {
           if (e.which === 9) {
@@ -203,6 +206,8 @@ var ModalVideo = function () {
               modal.setAttribute('aria-label', '');
               modal.focus();
             }
+          } else if (e.which === 27) {
+            closeModal();
           }
         });
         btn.addEventListener('click', function () {
@@ -261,7 +266,7 @@ var ModalVideo = function () {
     value: function getHtml(opt, videoUrl, id) {
       var padding = this.getPadding(opt.ratio);
       var classNames = opt.classNames;
-      return '\n      <div class="' + classNames.modalVideo + '" tabindex="-1" role="dialog" aria-label="' + opt.aria.openMessage + '" id="' + id + '">\n        <div class="' + classNames.modalVideoBody + '">\n          <div class="' + classNames.modalVideoInner + '">\n            <div class="' + classNames.modalVideoIframeWrap + '" style="padding-bottom:' + padding + '">\n              <button class="' + classNames.modalVideoCloseBtn + ' js-modal-video-dismiss-btn" aria-label="' + opt.aria.dismissBtnMessage + '"></button>\n              <iframe width=\'460\' height=\'230\' src="' + videoUrl + '" frameborder=\'0\' allowfullscreen=' + opt.allowFullScreen + ' tabindex="-1"/>\n            </div>\n          </div>\n        </div>\n      </div>\n    ';
+      return '\n      <div class="' + classNames.modalVideo + '" tabindex="-1" role="dialog" aria-label="' + opt.aria.openMessage + '" id="' + id + '">\n        <div class="' + classNames.modalVideoBody + '">\n          <div class="' + classNames.modalVideoInner + '">\n            <div class="' + classNames.modalVideoIframeWrap + '" style="padding-bottom:' + padding + '">\n              <button class="' + classNames.modalVideoCloseBtn + ' js-modal-video-dismiss-btn" aria-label="' + opt.aria.dismissBtnMessage + '"></button>\n              <iframe width=\'460\' height=\'230\' src="' + videoUrl + '" frameborder=\'0\' allowfullscreen=' + opt.allowFullScreen + ' tabindex="-1"/><div class="test">test</div>\n            </div>\n          </div>\n        </div>\n      </div>\n    ';
     }
   }]);
 

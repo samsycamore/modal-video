@@ -87,13 +87,16 @@ export default class ModalVideo {
         append(body, html);
         const modal = document.getElementById(id);
         const btn = modal.querySelector('.js-modal-video-dismiss-btn');
-        modal.focus();
-        modal.addEventListener('click', () => {
+        const closeModal = () => {
           addClass(modal, classNames.modalVideoClose);
           setTimeout(() => {
             remove(modal);
             selector.focus();
           }, speed);
+        };
+        modal.focus();
+        modal.addEventListener('click', () => {
+          closeModal();
         });
         modal.addEventListener('keydown', (e) => {
           if (e.which === 9) {
@@ -104,6 +107,8 @@ export default class ModalVideo {
               modal.setAttribute('aria-label', '');
               modal.focus();
             }
+          } else if (e.which === 27) {
+            closeModal();
           }
         });
         btn.addEventListener('click', () => {
@@ -161,7 +166,7 @@ export default class ModalVideo {
           <div class="${classNames.modalVideoInner}">
             <div class="${classNames.modalVideoIframeWrap}" style="padding-bottom:${padding}">
               <button class="${classNames.modalVideoCloseBtn} js-modal-video-dismiss-btn" aria-label="${opt.aria.dismissBtnMessage}"></button>
-              <iframe width='460' height='230' src="${videoUrl}" frameborder='0' allowfullscreen=${opt.allowFullScreen} tabindex="-1"/>
+              <iframe width='460' height='230' src="${videoUrl}" frameborder='0' allowfullscreen=${opt.allowFullScreen} tabindex="-1"/><div class="test">test</div>
             </div>
           </div>
         </div>
